@@ -1,0 +1,173 @@
+{
+  "entities": [
+    {
+      "id": 1,
+      "name": "vot",
+      "type": "module",
+      "description": "Yandex VOT API client. Копия yavot-py.",
+      "source_url": "https://github.com/yamixst/yavot-py",
+      "confidence": 9
+    },
+    {
+      "id": 2,
+      "name": "FastAPI",
+      "type": "api",
+      "description": "REST API сервиса.",
+      "source_url": null,
+      "confidence": 9
+    },
+    {
+      "id": 3,
+      "name": "Telegram Bot",
+      "type": "module",
+      "description": "Бот для доступа через Telegram.",
+      "source_url": null,
+      "confidence": 8
+    },
+    {
+      "id": 4,
+      "name": "FFmpeg",
+      "type": "tool",
+      "description": "Видео обработка.",
+      "source_url": null,
+      "confidence": 9
+    },
+    {
+      "id": 5,
+      "name": "bypassCache",
+      "type": "concept",
+      "description": "Обход кеша Яндекса.",
+      "source_url": null,
+      "confidence": 10
+    },
+    {
+      "id": 6,
+      "name": "proxy_break",
+      "type": "risk",
+      "description": "Прокси ломает vot.",
+      "source_url": null,
+      "confidence": 10
+    },
+    {
+      "id": 7,
+      "name": "duration_none",
+      "type": "concept",
+      "description": "duration=None для YouTube.",
+      "source_url": null,
+      "confidence": 10
+    },
+    {
+      "id": 8,
+      "name": "audio_expiry",
+      "type": "concept",
+      "description": "URL аудио живёт 2 часа.",
+      "source_url": null,
+      "confidence": 10
+    },
+    {
+      "id": 9,
+      "name": "test_video",
+      "type": "file",
+      "description": "Подтверждённый тест.",
+      "source_url": "test_video.py",
+      "confidence": 10
+    },
+    {
+      "id": 10,
+      "name": "local_site",
+      "type": "concept",
+      "description": "Сайт готов.",
+      "source_url": null,
+      "confidence": 7
+    },
+    {
+      "id": 11,
+      "name": "github_deploy",
+      "type": "file",
+      "description": "CI/CD готов.",
+      "source_url": ".github/workflows/deploy.yml",
+      "confidence": 8
+    }
+  ],
+  "triples": [
+    {
+      "subject_id": 1,
+      "subject": "vot",
+      "predicate": "used_by",
+      "object_id": 2,
+      "object": "FastAPI"
+    },
+    {
+      "subject_id": 1,
+      "subject": "vot",
+      "predicate": "used_by",
+      "object_id": 3,
+      "object": "Telegram Bot"
+    },
+    {
+      "subject_id": 2,
+      "subject": "FastAPI",
+      "predicate": "calls",
+      "object_id": 1,
+      "object": "vot"
+    },
+    {
+      "subject_id": 5,
+      "subject": "bypassCache",
+      "predicate": "required_for",
+      "object_id": 1,
+      "object": "vot"
+    },
+    {
+      "subject_id": 6,
+      "subject": "proxy_break",
+      "predicate": "breaks",
+      "object_id": 1,
+      "object": "vot"
+    },
+    {
+      "subject_id": 7,
+      "subject": "duration_none",
+      "predicate": "affects",
+      "object_id": 1,
+      "object": "vot"
+    },
+    {
+      "subject_id": 8,
+      "subject": "audio_expiry",
+      "predicate": "affects",
+      "object_id": 1,
+      "object": "vot"
+    },
+    {
+      "subject_id": 9,
+      "subject": "test_video",
+      "predicate": "tests",
+      "object_id": 1,
+      "object": "vot"
+    }
+  ],
+  "notes": [
+    {
+      "id": 1,
+      "title": "Проверка любого видео",
+      "body": "Тест с jNQXAC9IVRw прошёл успешно. MP3: 305990 байт.",
+      "tags": "test,video,vot,yandex",
+      "created_at": "2026-10-30 16:30:06"
+    },
+    {
+      "id": 2,
+      "title": "Ограничение 10 минут",
+      "body": "Без bypassCache — кеш (~600 сек). Для длинных: duration + bypassCache + firstRequest.",
+      "tags": "limit,vot,bypassCache",
+      "created_at": "2026-10-30 16:30:06"
+    },
+    {
+      "id": 3,
+      "title": "Прокси и ошибки",
+      "body": "HTTPS_PROXY ломает vot-соединение. Всегда очищать.",
+      "tags": "proxy,error,security",
+      "created_at": "2026-10-30 16:30:06"
+    }
+  ]
+}

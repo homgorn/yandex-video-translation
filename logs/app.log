@@ -1,0 +1,15 @@
+[2026-10-30 21:45:12] [INFO] Project initialized: Yandex Video Translation Service
+[2026-10-30 21:45:12] [INFO] Python 3.12.10 detected, httpx/protobuf/pydantic available
+[2026-10-30 21:45:15] [INFO] vot module imported from /tmp/yavot-py/src (local copy)
+[2026-10-30 21:45:20] [INFO] Test video URL: https://www.youtube.com/watch?v=jNQXAC9IVRw (Me at the zoo)
+[2026-10-30 21:45:21] [INFO] Duration: None (default 310 sec, video 18 sec — OK)
+[2026-10-30 21:45:25] [INFO] Attempt 0: status=1, translated=True, remaining_time=-1
+[2026-10-30 21:45:25] [INFO] Translation completed in ~0 sec (cached or short video)
+[2026-10-30 21:45:26] [INFO] Audio URL obtained: https://vtrans.s3-private.mds.yandex.net/tts/prod/9bea...
+[2026-10-30 21:45:27] [INFO] MP3 downloaded: /tmp/test_voiceover.mp3 (305990 bytes)
+[2026-10-30 21:45:30] [INFO] Test PASSED — video translation works end-to-end
+[2026-10-30 21:46:00] [INFO] Proxy variables cleared: HTTPS_PROXY, HTTP_PROXY, ALL_PROXY removed
+[2026-10-30 21:47:00] [INFO] Service architecture: FastAPI + vot + ffmpeg + Telegram bot
+[2026-10-30 21:48:00] [INFO] Decomposition completed (see specs/decomposition/decomposition.md)
+[2026-10-30 21:49:00] [INFO] Wiki index created (docs/wiki/index.md)
+[2026-10-30 21:50:00] [INFO] OpenAPI spec written (docs/api/openapi.md)

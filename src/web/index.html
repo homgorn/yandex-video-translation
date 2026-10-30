@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yandex Video Translation — Перевод с озвучкой</title>
+<style>
+:root{--bg:#0f0f14;--fg:#e8e8f0;--card:#181828;--accent:#8b5cf6;--muted:#9ca3af;--border:#27273a;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;}
+body{background:var(--bg);color:var(--fg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:1.5rem;padding:2.5rem;max-width:560px;width:100%;box-shadow:0 25px 50px rgba(0,0,0,.4);}
+h1{font-size:1.75rem;margin-bottom:.25rem;background:linear-gradient(135deg,#8b5cf6,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.subtitle{color:var(--muted);margin-bottom:1.5rem;font-size:.95rem;}
+label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:.35rem;}
+input{width:100%;padding:.85rem 1rem;border-radius:.75rem;background:#0f0f14;border:1px solid var(--border);color:var(--fg);font-size:1rem;margin-bottom:1.25rem;outline:none;transition:border-color .2s;}
+input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.15);}
+button{width:100%;padding:1rem 1.5rem;border-radius:1rem;border:none;background:linear-gradient(135deg,#8b5cf6,#c084fc);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;transition:opacity .2s,transform .1s;}
+button:hover{opacity:.92;transform:translateY(-1px);}
+.result{margin-top:1.5rem;padding:1rem;border-radius:.75rem;background:#0f0f14;border:1px solid var(--border);font-size:.9rem;color:var(--muted);min-height:3rem;line-height:1.55;}
+.result a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(139,92,246,.4);}
+.result a:hover{border-bottom-color:var(--accent);}
+.footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Перевод видео с озвучкой</h1>
+  <p class="subtitle">Через Yandex VOT API · en → ru · Без регистрации</p>
+
+  <label for="url">Ссылка на видео</label>
+  <input id="url" type="url" placeholder="https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=jNQXAC9IVRw">
+
+  <label for="lang">Язык перевода</label>
+  <input id="lang" type="text" placeholder="ru" value="ru">
+
+  <button onclick="translate()">Перевести</button>
+
+  <div id="result" class="result">Готово для теста: <a href="https://www.youtube.com/watch?v=jNQXAC9IVRw">jNQXAC9IVRw</a> — 18 сек, полный перевод работает.</div>
+
+  <div class="footer">
+    Локальный сервис · Деплой на домен потом · <a href="https://github.com/yamixst/yavot-py" style="color:var(--accent);">yavot-py</a> · <a href="docs/api/openapi.md" style="color:var(--accent);">API</a>
+  </div>
+</div>
+
+<script>
+async function translate() {
+  const url = document.getElementById('url').value;
+  const lang = document.getElementById('lang').value || 'ru';
+  const resEl = document.getElementById('result');
+  resEl.innerHTML = 'Отправляю запрос...';
+  try {
+    const r = await fetch('http://localhost:8000/translate', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({url, request_lang:'en', response_lang: lang, bypass_cache:true, first_request:true})
+    });
+    const data = await r.json();
+    resEl.innerHTML = `Задача запущена: <strong>${data.job_id}</strong><br>Проверь <a href="/status/${data.job_id}">статус</a> или подожди.`;
+  } catch(e) {
+    resEl.innerHTML = `Ошибка: ${e.message}<br>Проверь, что сервер запущен на порту 8000.`;
+  }
+}
+</script>
+</body>
+</html>

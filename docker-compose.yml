@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app:/app/vot
+    volumes:
+      - ./logs:/app/logs
+      - ./src:/app/src
+    command: python -m uvicorn src.backend.app:app --host 0.0.0.0 --port 8000
+
+  bot:
+    build: .
+    depends_on:
+      - backend
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-your_token_here}
+      - PYTHONPATH=/app:/app/vot
+    command: python src/bot/bot.py
+    volumes:
+      - ./logs:/app/logs
